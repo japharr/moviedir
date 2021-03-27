@@ -4,13 +4,14 @@ import android.content.Context
 import com.google.gson.FieldNamingPolicy
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
+import com.jeliliadesina.moviedir.BuildConfig
+import com.jeliliadesina.moviedir.api.ApiKeyInterceptor
+import com.jeliliadesina.moviedir.api.MovieDbService
 import okhttp3.Cache
 import okhttp3.OkHttpClient
 import org.koin.dsl.module
 import retrofit2.Retrofit
-import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
-import retrofit2.converter.scalars.ScalarsConverterFactory
 import java.util.concurrent.TimeUnit
 
 val retrofitModule = module {
@@ -25,6 +26,7 @@ val retrofitModule = module {
         client.connectTimeout(60, TimeUnit.SECONDS)
         client.readTimeout(60, TimeUnit.SECONDS)
         client.writeTimeout(60, TimeUnit.SECONDS)
+        client.addInterceptor(ApiKeyInterceptor(BuildConfig.API_DEVELOPER_KEY)).build()
         //client.connectionSpecs(listOf(ConnectionSpec.CLEARTEXT))
         //client.connectionSpecs(listOf(ConnectionSpec.COMPATIBLE_TLS))
 
@@ -34,17 +36,20 @@ val retrofitModule = module {
 
     fun provideRetrofit(gson: Gson, client: OkHttpClient): Retrofit {
         return Retrofit.Builder()
-            .baseUrl("https://api.github.com/")
+            .baseUrl(MovieDbService.ENDPOINT)
             .addConverterFactory(GsonConverterFactory.create(gson))
-            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-            .addConverterFactory(ScalarsConverterFactory.create())
+            //.addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+            //.addConverterFactory(ScalarsConverterFactory.create())
             .client(client)
             .build()
     }
+
+    fun provideMovieDbService(retrofit: Retrofit) = retrofit.create(MovieDbService::class.java)
 
     single { provideGson() }
     single { provideHttpCache(get()) }
     single { provideHttpClient(get()) }
     single { provideRetrofit(get(), get()) }
+    single { provideMovieDbService(get()) }
 
 }
