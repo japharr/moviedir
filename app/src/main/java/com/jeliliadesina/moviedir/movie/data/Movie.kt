@@ -27,7 +27,11 @@ data class Movie(
     @field:SerializedName("vote_average")
     var voteAverage: Double = 0.0,
     @field:SerializedName("release_date")
-    var releaseDate: String?
+    var releaseDate: String?,
+    @field:SerializedName("backdrop_path")
+    var backdropPath: String?
 ) {
     val imageUrl: String get() = "$BASE_POSTER_IMAGE_URL$posterPath"
+
+    val backdropPathUrl: String get() = "$BASE_POSTER_IMAGE_URL$backdropPath"
 }

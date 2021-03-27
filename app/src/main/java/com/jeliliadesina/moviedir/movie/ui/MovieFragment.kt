@@ -1,0 +1,83 @@
+package com.jeliliadesina.moviedir.movie.ui
+
+import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import androidx.appcompat.widget.Toolbar
+import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
+import androidx.navigation.NavController
+import androidx.navigation.Navigation.findNavController
+import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
+import androidx.navigation.ui.AppBarConfiguration
+import androidx.navigation.ui.setupWithNavController
+import com.google.android.material.appbar.CollapsingToolbarLayout
+import com.google.android.material.snackbar.Snackbar
+import com.jeliliadesina.moviedir.MainActivity
+import com.jeliliadesina.moviedir.R
+import com.jeliliadesina.moviedir.data.Result
+import com.jeliliadesina.moviedir.databinding.FragmentMovieBinding
+import com.jeliliadesina.moviedir.movie.data.Movie
+import org.koin.androidx.viewmodel.ext.android.viewModel
+
+
+class MovieFragment : Fragment() {
+    private val movieViewModel: MovieViewModel by viewModel()
+
+    private lateinit var movie: Movie
+
+    private val args: MovieFragmentArgs by navArgs()
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        movieViewModel.id = args.id
+
+        val binding = DataBindingUtil.inflate<FragmentMovieBinding>(
+            inflater, R.layout.fragment_movie, container, false
+        ).apply {
+            lifecycleOwner = this@MovieFragment
+            //fab.setOnClickListener { _ -> set.url?.let { intentOpenWebsite(activity!!,it) } }
+        }
+
+        subscribeUi(binding)
+
+        setHasOptionsMenu(true)
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        val navController = findNavController()
+        val appBarConfiguration = AppBarConfiguration(navController.graph)
+
+        view.findViewById<Toolbar>(R.id.toolbar)
+            .setupWithNavController(navController, appBarConfiguration)
+    }
+
+    private fun subscribeUi(binding: FragmentMovieBinding) {
+        movieViewModel.movie.observe(viewLifecycleOwner, Observer { result ->
+            when (result.status) {
+                Result.Status.SUCCESS -> {
+                    //binding.progressBar.hide()
+                    result.data?.let {
+                        binding.movie = it
+                        movie = it
+                    }
+                }
+                Result.Status.LOADING -> {
+                    //binding.progressBar.show()
+                }
+                Result.Status.ERROR -> {
+                    //binding.progressBar.hide()
+                    Snackbar.make(binding.coordinatorLayout, result.message!!, Snackbar.LENGTH_LONG)
+                        .show()
+                }
+            }
+        })
+    }
+}

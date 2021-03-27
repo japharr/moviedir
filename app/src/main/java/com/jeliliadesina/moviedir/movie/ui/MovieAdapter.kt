@@ -3,6 +3,7 @@ package com.jeliliadesina.moviedir.movie.ui
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.findNavController
 import androidx.paging.PagedListAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.GridLayoutManager
@@ -34,8 +35,8 @@ class MovieAdapter: PagedListAdapter<Movie, MovieAdapter.ViewHolder>(MovieDiffCa
 
     private fun createOnClickListener(id: Int): View.OnClickListener {
         return View.OnClickListener {
-//            val direction = LegoSetsFragmentDirections.actionToLegosetDetailFragment(id)
-//            it.findNavController().navigate(direction)
+            val direction = MoviesFragmentDirections.actionToMovieFragment(id)
+            it.findNavController().navigate(direction)
         }
     }
 

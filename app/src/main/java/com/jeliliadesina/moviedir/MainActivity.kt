@@ -17,11 +17,11 @@ class MainActivity : AppCompatActivity() {
     val binding: ActivityMainBinding = DataBindingUtil.setContentView(this,
       R.layout.activity_main)
 
-    setSupportActionBar(binding.toolbar)
-
-    val navController = findNavController(R.id.nav_fragment)
-    val appBarConfiguration = AppBarConfiguration(navController.graph)
-
-    binding.toolbar.setupWithNavController(navController, appBarConfiguration)
+//    setSupportActionBar(binding.toolbar)
+//
+//    val navController = findNavController(R.id.nav_fragment)
+//    val appBarConfiguration = AppBarConfiguration(navController.graph)
+//
+//    binding.toolbar.setupWithNavController(navController, appBarConfiguration)
   }
 }
