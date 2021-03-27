@@ -9,32 +9,39 @@ import kotlinx.coroutines.CoroutineScope
 
 class MovieRepository(private val dao: MovieDao, private val movieRemoteDataSource: MovieRemoteDataSource) {
 
-    fun observePagedSets(connectivityAvailable: Boolean, coroutineScope: CoroutineScope) =
-        if (connectivityAvailable) observeRemotePagedMoviess(coroutineScope)
+    fun observePagedSets(connectivityAvailable: Boolean, coroutineScope: CoroutineScope): LiveData<PagedList<Movie>> {
+        println("observePagedSets")
+        return if (connectivityAvailable)
+            observeRemotePagedMovies(coroutineScope)
         else observeLocalPagedMovies()
+    }
 
     private fun observeLocalPagedMovies(): LiveData<PagedList<Movie>> {
+        println("observeLocalPagedMovies")
         val dataSourceFactory = dao.loadPagedAll()
 
         return LivePagedListBuilder(dataSourceFactory,
             MoviePageDataSourceFactory.pagedListConfig()).build()
     }
 
-    private fun observeRemotePagedMoviess(ioCoroutineScope: CoroutineScope)
+    private fun observeRemotePagedMovies(ioCoroutineScope: CoroutineScope)
             : LiveData<PagedList<Movie>> {
+        println("observeRemotePagedMovies")
         val dataSourceFactory = MoviePageDataSourceFactory(movieRemoteDataSource, dao, ioCoroutineScope)
+
+        println("observeRemotePagedMovies: $dataSourceFactory")
         return LivePagedListBuilder(dataSourceFactory, MoviePageDataSourceFactory.pagedListConfig()).build()
     }
 
     fun observeMovie(id: Int) = resultLiveData(
         databaseQuery = { dao.getMovie(id) },
-        networkCall = { movieRemoteDataSource.fetchSet(id) },
+        networkCall = { movieRemoteDataSource.fetchMovie(id) },
         saveCallResult = { dao.insert(it) })
         .distinctUntilChanged()
 
     fun observeMovies() = resultLiveData(
         databaseQuery = { dao.getMovies() },
-        networkCall = { movieRemoteDataSource.fetchSets(1) },
+        networkCall = { movieRemoteDataSource.fetchMovies(1) },
         saveCallResult = { dao.insertAll(it.results) })
 
     companion object {

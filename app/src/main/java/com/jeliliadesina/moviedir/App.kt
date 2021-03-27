@@ -5,7 +5,7 @@ import com.jeliliadesina.moviedir.di.appModule
 import com.jeliliadesina.moviedir.di.dataModule
 import com.jeliliadesina.moviedir.di.retrofitModule
 import com.jeliliadesina.moviedir.di.viewModelModule
-import org.koin.android.BuildConfig
+import com.jeliliadesina.moviedir.util.CrashReportingTree
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.component.KoinApiExtension
@@ -19,6 +19,7 @@ class App : Application() {
         super.onCreate()
 
         if (BuildConfig.DEBUG) Timber.plant(Timber.DebugTree())
+        else Timber.plant(CrashReportingTree())
 
         startKoin {
             androidLogger(Level.DEBUG)

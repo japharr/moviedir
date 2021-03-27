@@ -23,9 +23,9 @@ val retrofitModule = module {
     fun provideHttpClient(cache: Cache): OkHttpClient {
         val client = OkHttpClient.Builder()
         client.cache(cache)
-        client.connectTimeout(60, TimeUnit.SECONDS)
-        client.readTimeout(60, TimeUnit.SECONDS)
-        client.writeTimeout(60, TimeUnit.SECONDS)
+        //client.connectTimeout(60, TimeUnit.SECONDS)
+        //client.readTimeout(60, TimeUnit.SECONDS)
+        //client.writeTimeout(60, TimeUnit.SECONDS)
         client.addInterceptor(ApiKeyInterceptor(BuildConfig.API_DEVELOPER_KEY)).build()
         //client.connectionSpecs(listOf(ConnectionSpec.CLEARTEXT))
         //client.connectionSpecs(listOf(ConnectionSpec.COMPATIBLE_TLS))

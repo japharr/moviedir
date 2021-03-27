@@ -4,8 +4,8 @@ import androidx.paging.PageKeyedDataSource
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
-import timber.log.Timber
 import com.jeliliadesina.moviedir.data.Result
+import timber.log.Timber
 
 class MoviePageDataSource constructor(
     private val dataSource: MovieRemoteDataSource,
@@ -37,7 +37,7 @@ class MoviePageDataSource constructor(
 
     private fun fetchData(page: Int, pageSize: Int, callback: (List<Movie>) -> Unit) {
         scope.launch(getJobErrorHandler()) {
-            val response = dataSource.fetchSets(page)
+            val response = dataSource.fetchMovies(page)
             if (response.status == Result.Status.SUCCESS) {
                 val results = response.data!!.results
                 dao.insertAll(results)

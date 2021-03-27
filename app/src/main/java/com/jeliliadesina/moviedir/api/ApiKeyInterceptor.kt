@@ -14,8 +14,10 @@ class ApiKeyInterceptor(private val apiKey: String): Interceptor {
         val originalHttpUrl: HttpUrl = original.url()
 
         val url = originalHttpUrl.newBuilder()
-            .addQueryParameter("apikey", apiKey)
+            .addQueryParameter("api_key", apiKey)
             .build()
+
+        println("url: $url")
 
         // Request customization: add request headers
         val requestBuilder: Request.Builder = original.newBuilder()

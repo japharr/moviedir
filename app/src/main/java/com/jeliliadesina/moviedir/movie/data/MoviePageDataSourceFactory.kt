@@ -4,6 +4,7 @@ import androidx.lifecycle.MutableLiveData
 import kotlinx.coroutines.CoroutineScope
 import androidx.paging.DataSource
 import androidx.paging.PagedList
+import timber.log.Timber
 
 class MoviePageDataSourceFactory constructor(
     private val dataSource: MovieRemoteDataSource,
@@ -13,6 +14,7 @@ class MoviePageDataSourceFactory constructor(
     private val liveData = MutableLiveData<MoviePageDataSource>()
 
     override fun create(): DataSource<Int, Movie> {
+        println("MoviePageDataSourceFactory created")
         val source = MoviePageDataSource(dataSource, dao, scope)
         liveData.postValue(source)
         return source
