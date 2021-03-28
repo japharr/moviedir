@@ -102,14 +102,14 @@ dependencies {
     implementation "androidx.navigation:navigation-fragment-ktx:$rootProject.navigationVersion"
     implementation "androidx.navigation:navigation-ui-ktx:$rootProject.navigationVersion"
 
+    // Timber (Logging)
     api "com.jakewharton.timber:timber:$rootProject.timberVersion"
-
-    testImplementation 'org.mockito:mockito-inline:2.13.0'
 
     testImplementation "junit:junit:$rootProject.junitVersion"
     testImplementation "com.squareup.okhttp3:mockwebserver:$rootProject.mockwebserverVersion"
     testImplementation "androidx.arch.core:core-testing:$rootProject.coreTestingVersion"
     testImplementation "org.mockito:mockito-core:$rootProject.mockitoVersion"
+    testImplementation "org.mockito:mockito-inline:$rootProject.mockitoInlineVersion"
 
     androidTestImplementation "androidx.arch.core:core-testing:$rootProject.coreTestingVersion"
     androidTestImplementation "androidx.test:core:$rootProject.testCoreVersion"
