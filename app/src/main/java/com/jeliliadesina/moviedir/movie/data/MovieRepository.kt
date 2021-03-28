@@ -7,7 +7,7 @@ import androidx.paging.PagedList
 import com.jeliliadesina.moviedir.data.resultLiveData
 import kotlinx.coroutines.CoroutineScope
 
-class MovieRepository(private val dao: MovieDao, private val movieRemoteDataSource: MovieRemoteDataSource) {
+class MovieRepository constructor(private val dao: MovieDao, private val movieRemoteDataSource: MovieRemoteDataSource) {
 
     fun observePagedSets(connectivityAvailable: Boolean, coroutineScope: CoroutineScope): LiveData<PagedList<Movie>> {
         println("observePagedSets")

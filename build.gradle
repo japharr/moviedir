@@ -32,6 +32,15 @@ buildscript {
         androidxJunitVersion = '1.1.2'
         espressoCoreVersion = '3.3.0'
 
+        coreTestingVersion = '2.1.0'
+        uiAutomatorVersion = '2.2.0'
+        mockitoVersion = "3.6.28"
+        mockitoAllVersion = "1.10.19"
+        mockitoAndroidVersion = "2.25.0"
+        mockwebserverVersion = "3.8.1"
+        testCoreVersion = "1.1.0"
+        testRunnerVersion = "1.1.1"
+        testRulesVersion = "1.1.1"
     }
     repositories {
         google()

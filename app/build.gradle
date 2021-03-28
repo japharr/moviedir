@@ -1,7 +1,7 @@
 plugins {
     id 'com.android.application'
     id 'kotlin-android'
-    id 'kotlin-android-extensions'
+    id 'kotlin-parcelize'
     id 'kotlin-kapt'
     id 'androidx.navigation.safeargs.kotlin'
 }
@@ -104,7 +104,25 @@ dependencies {
 
     api "com.jakewharton.timber:timber:$rootProject.timberVersion"
 
+    testImplementation 'org.mockito:mockito-inline:2.13.0'
+
     testImplementation "junit:junit:$rootProject.junitVersion"
+    testImplementation "com.squareup.okhttp3:mockwebserver:$rootProject.mockwebserverVersion"
+    testImplementation "androidx.arch.core:core-testing:$rootProject.coreTestingVersion"
+    testImplementation "org.mockito:mockito-core:$rootProject.mockitoVersion"
+
+    androidTestImplementation "androidx.test:core:$rootProject.testCoreVersion"
+    androidTestImplementation "androidx.test:runner:$rootProject.testRunnerVersion"
+    androidTestImplementation "androidx.test:rules:$rootProject.testRulesVersion"
+
+    androidTestImplementation "androidx.appcompat:appcompat:$rootProject.appcompatVersion"
+    androidTestImplementation "androidx.recyclerview:recyclerview:$rootProject.recyclerviewVersion"
+    androidTestImplementation "com.google.android.material:material:$rootProject.materialVersion"
+
     androidTestImplementation "androidx.test.ext:junit:$rootProject.androidxJunitVersion"
     androidTestImplementation "androidx.test.espresso:espresso-core:$rootProject.espressoCoreVersion"
+
+    androidTestImplementation "androidx.test.espresso:espresso-contrib:$rootProject.espressoCoreVersion"
+    androidTestImplementation "androidx.test.espresso:espresso-intents:$rootProject.espressoCoreVersion"
+    androidTestImplementation "androidx.test.uiautomator:uiautomator:$rootProject.uiAutomatorVersion"
 }

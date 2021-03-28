@@ -23,6 +23,7 @@ data class Movie(
     var popularity: Double = 0.0,
     var status: String?,
     var tagline: String?,
+    @field:SerializedName("vote_count")
     var voteCount: Long = 0L,
     @field:SerializedName("vote_average")
     var voteAverage: Double = 0.0,
