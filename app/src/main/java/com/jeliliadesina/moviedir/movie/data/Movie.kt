@@ -4,7 +4,9 @@ import android.text.TextUtils
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
+import com.jeliliadesina.moviedir.Constants.BASE_BACKDROP_IMAGE_URL
 import com.jeliliadesina.moviedir.Constants.BASE_POSTER_IMAGE_URL
+import com.jeliliadesina.moviedir.data.NameField
 import com.jeliliadesina.moviedir.util.ui.asDateOnly
 import com.jeliliadesina.moviedir.util.ui.asServerDate
 import com.jeliliadesina.moviedir.util.ui.asYear
@@ -28,6 +30,11 @@ data class Movie(
     var popularity: Double = 0.0,
     var status: String? = null,
     var tagline: String? = null,
+    var runtime: Int? = 0,
+    var revenue: Long? = 0L,
+    var budget: Long? = 0L,
+    var adult: Boolean? = false,
+    var genres: List<NameField?>? = null,
     @field:SerializedName("vote_count")
     var voteCount: Long = 0L,
     @field:SerializedName("vote_average")
@@ -35,15 +42,29 @@ data class Movie(
     @field:SerializedName("release_date")
     var releaseDate: String? = null,
     @field:SerializedName("backdrop_path")
-    var backdropPath: String? = null
+    var backdropPath: String? = null,
+    @field:SerializedName("production_companies")
+    var productionCompanies: List<NameField?>? = null,
+    @field:SerializedName("production_countries")
+    var productionCountries: List<NameField?>? = null,
+    @field:SerializedName("spoken_languages")
+    var spokenLanguages: List<NameField?>? = null
 ) {
     val imageUrl: String get() = "$BASE_POSTER_IMAGE_URL$posterPath"
 
-    val backdropPathUrl: String get() = "$BASE_POSTER_IMAGE_URL$backdropPath"
+    val backdropPathUrl: String get() = "$BASE_BACKDROP_IMAGE_URL$backdropPath"
+
+    val releasedDate: Date? get() = releaseDate?.asServerDate()
 
     val releasedYear: String? get() = releaseDate?.asServerDate()?.asYear()
 
     val ratings: String get() = String.format("%1$.1f", voteAverage, Locale.ENGLISH)
 
-    val genres: String? get() = TextUtils.join(", ", arrayOf("Action"))
+    val allGenres: String? get() = genres?.joinToString()
+
+    val allProductionCompanies: String? get() = productionCompanies?.joinToString()
+
+    val allProductionCountries: String? get() = productionCountries?.joinToString()
+
+    val allSpokenLanguages: String? get() = spokenLanguages?.joinToString()
 }

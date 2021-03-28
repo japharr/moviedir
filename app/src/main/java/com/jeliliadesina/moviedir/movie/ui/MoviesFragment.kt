@@ -43,7 +43,7 @@ class MoviesFragment : Fragment(), InternetConnectivityListener {
 
     private var isLinearLayoutManager: Boolean = false
 
-    private lateinit var mInternetAvailabilityChecker: InternetAvailabilityChecker
+    private var mInternetAvailabilityChecker: InternetAvailabilityChecker? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -51,7 +51,7 @@ class MoviesFragment : Fragment(), InternetConnectivityListener {
         savedInstanceState: Bundle?
     ): View {
         mInternetAvailabilityChecker = InternetAvailabilityChecker.getInstance()
-        mInternetAvailabilityChecker.addInternetConnectivityListener(this)
+        mInternetAvailabilityChecker?.addInternetConnectivityListener(this)
 
         //moviesViewModel.connectivityAvailable = ConnectivityUtil.isConnected(requireContext())
 
@@ -143,6 +143,6 @@ class MoviesFragment : Fragment(), InternetConnectivityListener {
 
     override fun onDetach() {
         super.onDetach()
-        mInternetAvailabilityChecker.removeInternetConnectivityChangeListener(this)
+        mInternetAvailabilityChecker?.removeInternetConnectivityChangeListener(this)
     }
 }

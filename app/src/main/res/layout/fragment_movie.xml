@@ -4,6 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+        <import type="android.text.format.DateUtils"/>
+        <import type="com.jeliliadesina.moviedir.util.ui.TypeExtensionKt" />
+
         <variable
             name="movie"
             type="com.jeliliadesina.moviedir.movie.data.Movie" />
@@ -95,7 +98,7 @@
                                 android:layout_height="wrap_content"
                                 android:textColor="@android:color/white"
                                 android:textStyle="bold"
-                                android:text="@{movie.releaseDate}"
+                                android:text="@{movie.releasedYear}"
                                 tools:text="2012-12-12"/>
 
                         </LinearLayout>
@@ -192,7 +195,7 @@
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:textStyle="bold"
-                                    android:maxLines="3"
+                                    android:maxLines="2"
                                     android:scrollbars="vertical"
                                     android:layout_marginBottom="5dp"
                                     android:text="@{movie.originalTitle}"/>
@@ -209,9 +212,11 @@
                                     android:textSize="15sp"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
+                                    android:maxLines="2"
+                                    android:scrollbars="vertical"
                                     android:textStyle="bold"
                                     android:layout_marginBottom="5dp"
-                                    android:text="@{movie.genres}"/>
+                                    android:text="@{movie.allGenres}"/>
 
                                 <TextView
                                     android:paddingTop="5dp"
@@ -241,7 +246,8 @@
                                     android:textSize="15sp"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:textStyle="bold"/>
+                                    android:textStyle="bold"
+                                    android:text="@{DateUtils.getRelativeTimeSpanString(movie.releasedDate.time)}"/>
                             </LinearLayout>
 
                             <!-- -->
@@ -276,6 +282,7 @@
 
 
                 <!-- Personal Info -->
+                <!--
                 <androidx.cardview.widget.CardView
                     style="@style/AppTheme.CardDetail.Margins"
                     android:layout_width="match_parent"
@@ -287,7 +294,7 @@
                         android:layout_height="wrap_content"
                         android:orientation="vertical">
 
-                        <!--
+
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -303,7 +310,6 @@
                             android:layout_width="match_parent"
                             android:layout_height="2dp"
                             android:background="@color/grey_soft" />
-                        -->
 
                         <LinearLayout
                             android:layout_width="match_parent"
@@ -374,6 +380,7 @@
                     </LinearLayout>
 
                 </androidx.cardview.widget.CardView>
+                -->
                 <!-- -->
 
                 <androidx.cardview.widget.CardView
@@ -448,7 +455,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:textStyle="bold"
-                            android:text="@{movie.genres}"
+                            android:text="@{movie.allProductionCompanies}"
                             android:layout_marginBottom="5dp" />
 
                         <TextView
@@ -464,10 +471,156 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:textStyle="bold"
-                            android:text="Action / Thriller"
+                            android:text="@{movie.allProductionCountries}"
                             android:layout_marginBottom="5dp" />
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    style="@style/AppTheme.CardDetail.Margins"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:cardUseCompatPadding="true">
+
+                    <LinearLayout
+                        android:orientation="vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10dp"
+                        android:padding="5dp">
+
+                        <LinearLayout
+                            android:orientation="horizontal"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:baselineAligned="false">
+                            <LinearLayout
+                                android:orientation="vertical"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:padding="5dp"
+                                android:layout_weight="1">
+
+                                <TextView
+                                    android:paddingTop="5dp"
+                                    android:textSize="12sp"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:textStyle="bold"
+                                    android:text="@string/budget" />
+                                <TextView
+                                    android:id="@+id/budget"
+                                    android:textSize="15sp"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:textStyle="bold"
+                                    android:text="@{TypeExtensionKt.toMoneyValue(movie.budget)}"
+                                    android:layout_marginBottom="5dp" />
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:orientation="vertical"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:padding="5dp"
+                                android:layout_weight="1">
+
+                                <TextView
+                                    android:paddingTop="5dp"
+                                    android:textSize="12sp"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:textStyle="bold"
+                                    android:text="@string/runtime" />
+                                <TextView
+                                    android:id="@+id/runtime"
+                                    android:textSize="15sp"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:textStyle="bold"
+                                    android:text="@{TypeExtensionKt.toDuration(movie.runtime)}"
+                                    android:layout_marginBottom="5dp" />
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:orientation="vertical"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:padding="5dp"
+                                android:layout_weight="1">
+
+                                <TextView
+                                    android:paddingTop="5dp"
+                                    android:textSize="12sp"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:textStyle="bold"
+                                    android:text="@string/revenue" />
+                                <TextView
+                                    android:id="@+id/revenue"
+                                    android:textSize="15sp"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:textStyle="bold"
+                                    android:text="@{TypeExtensionKt.toMoneyValue(movie.revenue)}"
+                                    android:layout_marginBottom="5dp" />
+                            </LinearLayout>
+                        </LinearLayout>
+
+                        <TextView
+                            android:paddingTop="5dp"
+                            android:textSize="12sp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textStyle="bold"
+                            android:text="@string/homepage" />
+                        <TextView
+                            android:id="@+id/homepage"
+                            android:textSize="15sp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textStyle="bold"
+                            android:autoLink="web"
+                            android:layout_marginBottom="5dp"
+                            android:text="@{movie.homepage}"
+                            android:textColorLink="@color/light_blue"
+                            tools:text="http://www.homepage.com"/>
+                    </LinearLayout>
+
+                </androidx.cardview.widget.CardView>
+
+<!--                <androidx.cardview.widget.CardView-->
+<!--                    style="@style/AppTheme.CardDetail.Margins"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    app:cardUseCompatPadding="true">-->
+<!--                    <LinearLayout-->
+<!--                        android:orientation="vertical"-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_margin="10dp"-->
+<!--                        android:padding="5dp">-->
+
+<!--                        <TextView-->
+<!--                            android:paddingTop="5dp"-->
+<!--                            android:textSize="12sp"-->
+<!--                            android:layout_width="match_parent"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:textStyle="bold"-->
+<!--                            android:text="@string/homepage" />-->
+<!--                        <TextView-->
+<!--                            android:id="@+id/homepage"-->
+<!--                            android:textSize="15sp"-->
+<!--                            android:layout_width="match_parent"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:textStyle="bold"-->
+<!--                            android:autoLink="web"-->
+<!--                            android:layout_marginBottom="5dp"-->
+<!--                            android:text="@{movie.homepage}"-->
+<!--                            android:textColorLink="@color/light_blue"-->
+<!--                            tools:text="http://www.homepage.com"/>-->
+<!--                    </LinearLayout>-->
+<!--                </androidx.cardview.widget.CardView>-->
             </LinearLayout>
 
         </androidx.core.widget.NestedScrollView>
