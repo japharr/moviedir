@@ -43,5 +43,7 @@ data class Movie(
 
     val releasedYear: String? get() = releaseDate?.asServerDate()?.asYear()
 
+    val ratings: String get() = String.format("%1$.1f", voteAverage, Locale.ENGLISH)
+
     val genres: String? get() = TextUtils.join(", ", arrayOf("Action"))
 }

@@ -7,4 +7,18 @@
 
     <string name="thumbnail">Thumbnail</string>
     <string name="grid" translation_description="Common Filter">Switch between grid and list</string>
+
+    <string name="original_title">Original Title</string>
+    <string name="genres">Genres</string>
+    <string name="status">Status</string>
+    <string name="released_date">Release Date</string>
+    <string name="tagline">Tag line</string>
+    <string name="description">Description</string>
+    <string name="production_companies">Production Companies</string>
+    <string name="production_countries">Production Countries</string>
+    <string name="origin_countries">Origin Countries</string>
+    <string name="biography">Biography</string>
+
+    <string name="total_rating">/10</string>
+    <string name="languages">Languages</string>
 </resources>
