@@ -8,7 +8,7 @@ import androidx.paging.PagedListAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.jeliliadesina.moviedir.databinding.ListItemMovieBinding
+import com.jeliliadesina.moviedir.databinding.GridItemMovieBinding
 import com.jeliliadesina.moviedir.movie.data.Movie
 
 class MovieAdapter: PagedListAdapter<Movie, MovieAdapter.ViewHolder>(MovieDiffCallback()) {
@@ -25,7 +25,7 @@ class MovieAdapter: PagedListAdapter<Movie, MovieAdapter.ViewHolder>(MovieDiffCa
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        return ViewHolder(ListItemMovieBinding.inflate(LayoutInflater.from(parent.context), parent, false))
+        return ViewHolder(GridItemMovieBinding.inflate(LayoutInflater.from(parent.context), parent, false))
     }
 
     override fun onAttachedToRecyclerView(recyclerView: RecyclerView) {
@@ -42,7 +42,7 @@ class MovieAdapter: PagedListAdapter<Movie, MovieAdapter.ViewHolder>(MovieDiffCa
 
     private fun isGridLayoutManager() = recyclerView.layoutManager is GridLayoutManager
 
-    class ViewHolder(private val binding: ListItemMovieBinding)
+    class ViewHolder(private val binding: GridItemMovieBinding)
         : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(listener: View.OnClickListener, item: Movie,
@@ -50,7 +50,7 @@ class MovieAdapter: PagedListAdapter<Movie, MovieAdapter.ViewHolder>(MovieDiffCa
             binding.apply {
                 clickListener = listener
                 movie = item
-                title.visibility = if (isGridLayoutManager) View.GONE else View.VISIBLE
+                //title.visibility = if (isGridLayoutManager) View.GONE else View.VISIBLE
                 executePendingBindings()
             }
         }

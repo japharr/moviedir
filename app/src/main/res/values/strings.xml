@@ -4,4 +4,7 @@
     <string name="movie_poster_desc">Movie Poster</string>
     <string name="movies">Movies</string>
     <string name="movie">Movie</string>
+
+    <string name="thumbnail">Thumbnail</string>
+    <string name="grid" translation_description="Common Filter">Switch between grid and list</string>
 </resources>

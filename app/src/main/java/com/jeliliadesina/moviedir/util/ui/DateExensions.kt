@@ -22,6 +22,7 @@ object DateHelper { //1996-07-26
   const val DATE_TIME_SIMPLE_STRING = "dd/MM/yyyy HH:mm a"
   const val DATE_TIME_HORT_STRING = "dd MMM, yyyy HH:mm a"
   const val DATER_TIME_SERVER_STRING_GEN = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
+  const val DATE_YEAR_STRING = "yyyy"
 
   @JvmField val DATE_TIME_SHORT_FORMAT = object : ThreadLocal<DateFormat>() {
     override fun initialValue(): DateFormat {
@@ -58,6 +59,11 @@ object DateHelper { //1996-07-26
       return SimpleDateFormat(DATER_TIME_SERVER_STRING_GEN, Locale.ENGLISH)
     }
   }
+  @JvmField val DATE_YEAR_GEN_FORMAT = object : ThreadLocal<DateFormat>() {
+    override fun initialValue(): DateFormat {
+      return SimpleDateFormat(DATE_YEAR_STRING, Locale.ENGLISH)
+    }
+  }
 }
 
 fun dateNow(): String? = Date().asString()
@@ -80,7 +86,11 @@ fun Date.asServerDate(): String? = DateHelper.DATE_SERVER_FORMAT.get()?.format(t
 
 fun Date.asServerDateTime(): String? = DateHelper.DATE_TIME_SERVER_FORMAT.get()?.format(this)
 
+fun Date.asYear(): String? = DateHelper.DATE_YEAR_GEN_FORMAT.get()?.format(this)
+
 fun String.asDate(): Date? = DateHelper.DF_SIMPLE_FORMAT.get()?.parse(this, ParsePosition(0))
+
+fun String.asServerDate(): Date? = DateHelper.DATE_SERVER_FORMAT.get()?.parse(this, ParsePosition(0))
 
 fun String.asDateOnly(): Date? = DateHelper.DATE_SIMPLE_FORMAT.get()?.parse(this, ParsePosition(0))
 

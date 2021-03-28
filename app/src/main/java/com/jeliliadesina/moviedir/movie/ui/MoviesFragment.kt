@@ -1,10 +1,7 @@
 package com.jeliliadesina.moviedir.movie.ui
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.MenuItem
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -82,27 +79,27 @@ class MoviesFragment : Fragment(), InternetConnectivityListener {
             .setupWithNavController(navController, appBarConfiguration)
     }
 
-//    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-//        inflater.inflate(R.menu.menu_list_representation, menu)
-//        setDataRepresentationIcon(menu.findItem(R.id.list))
-//    }
-//
-//    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-//        return when (item.itemId) {
-//            R.id.list -> {
-//                isLinearLayoutManager = !isLinearLayoutManager
-//                setDataRepresentationIcon(item)
-//                setLayoutManager()
-//                true
-//            }
-//            else -> super.onOptionsItemSelected(item)
-//        }
-//    }
-//
-//    private fun setDataRepresentationIcon(item: MenuItem) {
-//        item.setIcon(if (isLinearLayoutManager)
-//            R.drawable.ic_grid_list_24dp else R.drawable.ic_list_white_24dp)
-//    }
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.menu_list_representation, menu)
+        setDataRepresentationIcon(menu.findItem(R.id.list))
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.list -> {
+                isLinearLayoutManager = !isLinearLayoutManager
+                setDataRepresentationIcon(item)
+                setLayoutManager()
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
+    }
+
+    private fun setDataRepresentationIcon(item: MenuItem) {
+        item.setIcon(if (isLinearLayoutManager)
+            R.drawable.ic_grid_list_24dp else R.drawable.ic_list_white_24dp)
+    }
 
     private fun subscribeUi(adapter: MovieAdapter) {
         moviesViewModel.movies.observe(viewLifecycleOwner) {
@@ -137,7 +134,7 @@ class MoviesFragment : Fragment(), InternetConnectivityListener {
     }
 
     companion object {
-        const val SPAN_COUNT = 3
+        const val SPAN_COUNT = 2
     }
 
     override fun onInternetConnectivityChanged(isConnected: Boolean) {
