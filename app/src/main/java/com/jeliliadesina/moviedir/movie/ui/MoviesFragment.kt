@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupWithNavController
@@ -21,31 +22,54 @@ import com.jeliliadesina.moviedir.util.ui.BaseFragment
 import com.jeliliadesina.moviedir.util.ui.GridSpacingItemDecoration
 import com.jeliliadesina.moviedir.util.ui.VerticalItemDecoration
 import com.jeliliadesina.moviedir.util.ui.hide
+import com.treebo.internetavailabilitychecker.InternetAvailabilityChecker
+import com.treebo.internetavailabilitychecker.InternetConnectivityListener
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import timber.log.Timber
 
-class MoviesFragment : BaseFragment<FragmentMoviesBinding, MoviesViewModel>(), MoviesNavigator {
+class MoviesFragment : Fragment(), InternetConnectivityListener {
     private val moviesViewModel: MoviesViewModel by viewModel()
 
-    //private lateinit var binding: FragmentMoviesBinding
+    private lateinit var binding: FragmentMoviesBinding
     private val adapter: MovieAdapter by lazy { MovieAdapter() }
     private lateinit var linearLayoutManager: LinearLayoutManager
-
-    private lateinit var recyclerView: RecyclerView
-
     private lateinit var gridLayoutManager: GridLayoutManager
 
     private val linearDecoration: RecyclerView.ItemDecoration by lazy {
-        VerticalItemDecoration(
-            resources.getDimension(R.dimen.margin_normal).toInt())
+        VerticalItemDecoration(resources.getDimension(R.dimen.margin_normal).toInt())
     }
 
     private val gridDecoration: RecyclerView.ItemDecoration by lazy {
-        GridSpacingItemDecoration(
-            SPAN_COUNT, resources.getDimension(R.dimen.margin_grid).toInt())
+        GridSpacingItemDecoration(SPAN_COUNT, resources.getDimension(R.dimen.margin_grid).toInt())
     }
 
     private var isLinearLayoutManager: Boolean = false
+
+    private lateinit var mInternetAvailabilityChecker: InternetAvailabilityChecker
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        mInternetAvailabilityChecker = InternetAvailabilityChecker.getInstance()
+        mInternetAvailabilityChecker.addInternetConnectivityListener(this)
+
+        //moviesViewModel.connectivityAvailable = ConnectivityUtil.isConnected(requireContext())
+
+        binding = FragmentMoviesBinding.inflate(inflater, container, false)
+        context ?: return binding.root
+
+        linearLayoutManager = LinearLayoutManager(activity)
+        gridLayoutManager = GridLayoutManager(activity, SPAN_COUNT)
+
+        setLayoutManager()
+        binding.recyclerView.adapter = adapter
+
+        subscribeUi(adapter)
+        setHasOptionsMenu(true)
+        return binding.root
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -55,26 +79,6 @@ class MoviesFragment : BaseFragment<FragmentMoviesBinding, MoviesViewModel>(), M
 
         view.findViewById<Toolbar>(R.id.toolbar)
             .setupWithNavController(navController, appBarConfiguration)
-
-        val conn = ConnectivityUtil.isConnected(requireContext())
-        println("isConnected: $conn")
-
-        moviesViewModel.connectivityAvailable = ConnectivityUtil.isConnected(requireContext())
-
-        //moviesViewModel.load()
-
-        println("isConnected after: $conn")
-
-        linearLayoutManager = LinearLayoutManager(activity)
-        gridLayoutManager = GridLayoutManager(activity, SPAN_COUNT)
-
-        recyclerView = getViewDataBinding().recyclerView
-
-        setLayoutManager()
-
-        recyclerView.adapter = adapter
-
-        subscribeUi(adapter)
     }
 
 //    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -101,13 +105,17 @@ class MoviesFragment : BaseFragment<FragmentMoviesBinding, MoviesViewModel>(), M
 
     private fun subscribeUi(adapter: MovieAdapter) {
         moviesViewModel.movies.observe(viewLifecycleOwner) {
-            getViewDataBinding().progressBar.hide()
-            adapter.submitList(it)
+            if(it.isNotEmpty()) {
+                Timber.v("data size: ${it.size}")
+                binding.progressBar.hide()
+                adapter.submitList(it)
+            }
         }
     }
 
+
     private fun setLayoutManager() {
-        //val recyclerView = binding.recyclerView
+        val recyclerView = binding.recyclerView
 
         var scrollPosition = 0
         // If a layout manager has already been set, get current scroll position.
@@ -133,9 +141,12 @@ class MoviesFragment : BaseFragment<FragmentMoviesBinding, MoviesViewModel>(), M
         const val SPAN_COUNT = 3
     }
 
-    override fun getBindingVariable() = BR.viewModel
+    override fun onInternetConnectivityChanged(isConnected: Boolean) {
+        moviesViewModel.connectivityAvailable.set(isConnected)
+    }
 
-    override fun getLayoutId() = R.layout.fragment_movies
-
-    override fun getViewModel() = moviesViewModel
+    override fun onDetach() {
+        super.onDetach()
+        mInternetAvailabilityChecker.removeInternetConnectivityChangeListener(this)
+    }
 }

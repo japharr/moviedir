@@ -1,31 +1,18 @@
 package com.jeliliadesina.moviedir.movie.ui
 
+import androidx.databinding.ObservableField
+import androidx.lifecycle.ViewModel
 import com.jeliliadesina.moviedir.movie.data.MovieRepository
-import com.jeliliadesina.moviedir.util.ui.BaseViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.cancel
 
 class MoviesViewModel constructor(
     private val repository: MovieRepository, private val ioCoroutineScope: CoroutineScope
-) : BaseViewModel<MoviesNavigator>()  {
-    var connectivityAvailable: Boolean = false
+) : ViewModel()  {
+    var connectivityAvailable: ObservableField<Boolean> = ObservableField(false)
 
     val movies by lazy {
-        repository.observePagedSets(connectivityAvailable, ioCoroutineScope)
-    }
-
-    //var movies: () -> LiveData<PagedList<Movie>> = { repository.observePagedSets(connectivityAvailable, ioCoroutineScope) }
-
-    //var movies: LiveData<PagedList<Movie>> = MutableLiveData()
-
-    init {
-        //repository.observePagedSets(connectivityAvailable, ioCoroutineScope)
-        //load()
-    }
-
-    fun load() {
-        println("loading...")
-        //movies = repository.observePagedSets(connectivityAvailable, ioCoroutineScope)
+        repository.observePagedSets(connectivityAvailable.get() ?: false, ioCoroutineScope)
     }
 
     /**
