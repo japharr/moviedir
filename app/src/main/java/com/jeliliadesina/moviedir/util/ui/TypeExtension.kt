@@ -1,7 +1,6 @@
 package com.jeliliadesina.moviedir.util.ui
 
 import java.text.DecimalFormat
-import java.util.concurrent.TimeUnit
 
 val formatter: DecimalFormat = DecimalFormat("$#,###")
 

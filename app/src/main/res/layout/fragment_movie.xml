@@ -80,17 +80,6 @@
                                 tools:text="Justice League"
                                 android:text="@{movie.title}"/>
 
-                            <!--
-                            <TextView
-                                android:id="@+id/genres"
-                                android:textSize="15sp"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:textColor="@android:color/white"
-                                android:textStyle="bold"
-                                android:layout_marginBottom="5dp" />
-                            -->
-
                             <TextView
                                 android:id="@+id/date"
                                 android:textSize="15sp"
@@ -122,28 +111,6 @@
             android:layout_height="match_parent"
             android:clipToPadding="false"
             app:layout_behavior="@string/appbar_scrolling_view_behavior">
-
-            <!--
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <TextView
-                    android:id="@+id/name"
-                    style="?android:attr/textAppearanceLarge"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/margin_small"
-                    android:layout_marginTop="@dimen/margin_normal"
-                    android:layout_marginEnd="@dimen/margin_small"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    android:text="@{movie.title}"
-                    tools:text="Adamant Tower" />
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
-            -->
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -279,109 +246,6 @@
                         </RelativeLayout>
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
-
-
-                <!-- Personal Info -->
-                <!--
-                <androidx.cardview.widget.CardView
-                    style="@style/AppTheme.CardDetail.Margins"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:cardUseCompatPadding="true">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical">
-
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginBottom="@dimen/spacing_medium"
-                            android:layout_marginLeft="@dimen/spacing_large"
-                            android:layout_marginRight="@dimen/spacing_large"
-                            android:layout_marginTop="@dimen/spacing_large"
-                            tools:text="Personal Details"
-                            android:textAppearance="@style/TextAppearance.AppCompat.Headline"
-                            android:textColor="@color/material_grey_800" />
-
-                        <View
-                            android:layout_width="match_parent"
-                            android:layout_height="2dp"
-                            android:background="@color/grey_soft" />
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal">
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_margin="@dimen/spacing_xsmall"
-                                tools:text="John Thomas"
-                                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-                                android:textColor="@color/material_grey_600"
-                                android:padding="2dp"
-                                android:textStyle="bold"
-                                android:drawablePadding="15dp"
-                                android:gravity="center_vertical" />
-
-                            <TextView
-                                android:id="@+id/txv_reg_no"
-                                android:layout_weight="1"
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_margin="@dimen/spacing_xsmall"
-                                android:text=""
-                                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-                                android:textColor="@color/material_grey_600"
-                                android:padding="2dp"
-                                android:drawablePadding="15dp"
-                                android:gravity="center_vertical"/>
-                        </LinearLayout>
-
-                        <TextView
-                            android:id="@+id/txv_name"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_margin="@dimen/spacing_xsmall"
-                            tools:text="0883 267 813"
-                            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-                            android:textColor="@color/material_grey_600"
-                            android:padding="2dp"
-                            android:drawablePadding="15dp"
-                            android:gravity="center_vertical"/>
-
-                        <TextView
-                            android:id="@+id/txv_gender"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_margin="@dimen/spacing_xsmall"
-                            android:text="www.samplewebsite.com"
-                            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-                            android:textColor="@color/material_grey_600"
-                            android:padding="2dp"
-                            android:drawablePadding="15dp"
-                            android:gravity="center_vertical"/>
-
-                        <TextView
-                            android:id="@+id/txv_birth_date"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_margin="@dimen/spacing_xsmall"
-                            android:text="What in my mind"
-                            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-                            android:textColor="@color/material_grey_600"
-                            android:padding="2dp"
-                            android:drawablePadding="15dp"
-                            android:gravity="center_vertical"/>
-
-                    </LinearLayout>
-
-                </androidx.cardview.widget.CardView>
-                -->
-                <!-- -->
 
                 <androidx.cardview.widget.CardView
                     style="@style/AppTheme.CardDetail.Margins"
