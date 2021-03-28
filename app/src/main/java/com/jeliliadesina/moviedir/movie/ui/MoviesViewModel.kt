@@ -9,10 +9,10 @@ import kotlinx.coroutines.cancel
 class MoviesViewModel constructor(
     private val repository: MovieRepository, private val ioCoroutineScope: CoroutineScope
 ) : ViewModel()  {
-    var connectivityAvailable: ObservableField<Boolean> = ObservableField(false)
+    var connectivityAvailable: ObservableField<Boolean> = ObservableField(true)
 
     val movies by lazy {
-        repository.observePagedSets(connectivityAvailable.get() ?: false, ioCoroutineScope)
+        repository.observePagedSets(connectivityAvailable.get() ?: true, ioCoroutineScope)
     }
 
     /**

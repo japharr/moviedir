@@ -16,12 +16,14 @@ class MoviePageDataSource constructor(
         params: LoadInitialParams<Int>,
         callback: LoadInitialCallback<Int, Movie>
     ) {
+        Timber.v("loadInitial")
         fetchData(1, params.requestedLoadSize) {
             callback.onResult(it, null, 2)
         }
     }
 
     override fun loadBefore(params: LoadParams<Int>, callback: LoadCallback<Int, Movie>) {
+        Timber.v("loadBefore")
         val page = params.key
         fetchData(page, params.requestedLoadSize) {
             callback.onResult(it, page - 1)
@@ -29,6 +31,7 @@ class MoviePageDataSource constructor(
     }
 
     override fun loadAfter(params: LoadParams<Int>, callback: LoadCallback<Int, Movie>) {
+        Timber.v("loadAfter")
         val page = params.key
         fetchData(page, params.requestedLoadSize) {
             callback.onResult(it, page + 1)
@@ -36,8 +39,11 @@ class MoviePageDataSource constructor(
     }
 
     private fun fetchData(page: Int, pageSize: Int, callback: (List<Movie>) -> Unit) {
+        Timber.v("fetchData")
         scope.launch(getJobErrorHandler()) {
+            Timber.v("fetchData: launch")
             val response = dataSource.fetchMovies(page)
+            Timber.v("fetchData: status: ${response.status}")
             if (response.status == Result.Status.SUCCESS) {
                 val results = response.data!!.results
                 dao.insertAll(results)

@@ -1,9 +1,12 @@
 package com.jeliliadesina.moviedir.movie.data
 
+import android.text.TextUtils
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
 import com.jeliliadesina.moviedir.Constants.BASE_POSTER_IMAGE_URL
+import com.jeliliadesina.moviedir.util.ui.asDateOnly
+import java.util.*
 
 @Entity(tableName = "movies")
 data class Movie(
@@ -35,4 +38,8 @@ data class Movie(
     val imageUrl: String get() = "$BASE_POSTER_IMAGE_URL$posterPath"
 
     val backdropPathUrl: String get() = "$BASE_POSTER_IMAGE_URL$backdropPath"
+
+    val releasedDateDate: Date? get() = releaseDate?.asDateOnly()
+
+    val genres: String? get() = TextUtils.join(", ", arrayOf("Action"))
 }

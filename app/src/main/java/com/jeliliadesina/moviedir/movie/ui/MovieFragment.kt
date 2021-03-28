@@ -8,13 +8,12 @@ import androidx.appcompat.widget.Toolbar
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.navigation.NavController
-import androidx.navigation.Navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupWithNavController
-import com.google.android.material.appbar.CollapsingToolbarLayout
+import com.google.android.material.appbar.AppBarLayout
+import com.google.android.material.appbar.AppBarLayout.OnOffsetChangedListener
 import com.google.android.material.snackbar.Snackbar
 import com.jeliliadesina.moviedir.MainActivity
 import com.jeliliadesina.moviedir.R
@@ -24,7 +23,7 @@ import com.jeliliadesina.moviedir.movie.data.Movie
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
-class MovieFragment : Fragment() {
+class MovieFragment : Fragment(), MainActivity.OnBackPressedListener {
     private val movieViewModel: MovieViewModel by viewModel()
 
     private lateinit var movie: Movie
@@ -40,15 +39,37 @@ class MovieFragment : Fragment() {
 
         val binding = DataBindingUtil.inflate<FragmentMovieBinding>(
             inflater, R.layout.fragment_movie, container, false
-        ).apply {
-            lifecycleOwner = this@MovieFragment
-            //fab.setOnClickListener { _ -> set.url?.let { intentOpenWebsite(activity!!,it) } }
-        }
+        ).apply { lifecycleOwner = this@MovieFragment }
 
         subscribeUi(binding)
+        setCollapsibleToolbar(binding)
 
         setHasOptionsMenu(true)
         return binding.root
+    }
+
+    private fun setCollapsibleToolbar(binding: FragmentMovieBinding) {
+        binding.collapsingToolbar.title = " ";
+        binding.appBarLayout.addOnOffsetChangedListener(object : OnOffsetChangedListener {
+            var isShow = false
+            var scrollRange = -1
+            override fun onOffsetChanged(appBarLayout: AppBarLayout, verticalOffset: Int) {
+                if (scrollRange == -1) {
+                    scrollRange = appBarLayout.totalScrollRange
+                }
+                if (scrollRange + verticalOffset == 0) {
+                    binding.collapsingToolbar.title = movie.title
+                    isShow = true
+                } else if (isShow) {
+                    binding.collapsingToolbar.title = " " //carefull there should a space between double quote otherwise it wont work
+                    isShow = false
+                }
+            }
+        })
+    }
+
+    override fun onBackPressed(): Boolean {
+        return true
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

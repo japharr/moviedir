@@ -104,6 +104,8 @@ dependencies {
 
     // Timber (Logging)
     api "com.jakewharton.timber:timber:$rootProject.timberVersion"
+    
+    implementation project(':square-image-view')
 
     testImplementation "junit:junit:$rootProject.junitVersion"
     testImplementation "com.squareup.okhttp3:mockwebserver:$rootProject.mockwebserverVersion"

@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.jeliliadesina.moviedir.BR
+import com.jeliliadesina.moviedir.MainActivity
 import com.jeliliadesina.moviedir.R
 import com.jeliliadesina.moviedir.databinding.FragmentMoviesBinding
 import com.jeliliadesina.moviedir.util.ConnectivityUtil
@@ -105,11 +106,9 @@ class MoviesFragment : Fragment(), InternetConnectivityListener {
 
     private fun subscribeUi(adapter: MovieAdapter) {
         moviesViewModel.movies.observe(viewLifecycleOwner) {
-            if(it.isNotEmpty()) {
-                Timber.v("data size: ${it.size}")
-                binding.progressBar.hide()
-                adapter.submitList(it)
-            }
+            Timber.v("data size: ${it.size}")
+            binding.progressBar.hide()
+            adapter.submitList(it)
         }
     }
 

@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
         <variable
             name="movie"
             type="com.jeliliadesina.moviedir.movie.data.Movie" />
@@ -33,16 +32,75 @@
                 app:contentScrim="?attr/colorPrimary"
                 app:layout_scrollFlags="scroll|exitUntilCollapsed">
 
-                <ImageView
-                    android:id="@+id/image"
+                <LinearLayout
+                    android:id="@+id/RelativeLayout1"
                     android:layout_width="match_parent"
-                    android:layout_height="250dp"
-                    android:background="@color/colorImagePlaceholder"
-                    android:contentDescription="@string/movie_poster_desc"
-                    android:fitsSystemWindows="true"
-                    android:scaleType="fitXY"
-                    app:imageFromUrl="@{movie.backdropPathUrl}"
-                    app:layout_collapseMode="parallax" />
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/white"
+                    android:orientation="vertical"
+                    app:layout_collapseMode="parallax">
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="250dp"
+                        android:background="@android:color/black">
+                        <com.jeliliadesina.squareimageview.SquareImageView
+                            android:id="@+id/image"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@color/colorImagePlaceholder"
+                            android:contentDescription="@string/movie_poster_desc"
+                            android:fitsSystemWindows="true"
+                            android:scaleType="fitXY"
+                            app:imageFromUrl="@{movie.backdropPathUrl}" />
+
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentBottom="true"
+                            android:layout_alignParentStart="true"
+                            android:orientation="vertical"
+                            android:layout_marginBottom="0dp"
+                            android:paddingRight="10dp"
+                            android:paddingLeft="10dp"
+                            android:background="#50000000">
+
+                            <TextView
+                                android:id="@+id/title"
+                                android:textSize="25sp"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:textColor="@android:color/white"
+                                android:textStyle="bold"
+                                android:maxLines="2"
+                                android:scrollbars="vertical"
+                                tools:text="Justice League"
+                                android:text="@{movie.title}"/>
+
+                            <!--
+                            <TextView
+                                android:id="@+id/genres"
+                                android:textSize="15sp"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:textColor="@android:color/white"
+                                android:textStyle="bold"
+                                android:layout_marginBottom="5dp" />
+                            -->
+
+                            <TextView
+                                android:id="@+id/date"
+                                android:textSize="15sp"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:textColor="@android:color/white"
+                                android:textStyle="bold"
+                                android:text="@{movie.releaseDate}"
+                                tools:text="2012-12-12"/>
+
+                        </LinearLayout>
+                    </RelativeLayout>
+                </LinearLayout>
 
                 <androidx.appcompat.widget.Toolbar
                     android:id="@+id/toolbar"
