@@ -75,11 +75,49 @@ data class Movie(
         other as Movie
 
         if (id != other.id) return false
+        if (title != other.title) return false
+        if (originalTitle != other.originalTitle) return false
+        if (originalLanguage != other.originalLanguage) return false
+        if (imdbId != other.imdbId) return false
+        if (posterPath != other.posterPath) return false
+        if (homepage != other.homepage) return false
+        if (overview != other.overview) return false
+        if (popularity != other.popularity) return false
+        if (status != other.status) return false
+        if (tagline != other.tagline) return false
+        if (runtime != other.runtime) return false
+        if (revenue != other.revenue) return false
+        if (budget != other.budget) return false
+        if (adult != other.adult) return false
+        if (voteCount != other.voteCount) return false
+        if (voteAverage != other.voteAverage) return false
+        if (releaseDate != other.releaseDate) return false
+        if (backdropPath != other.backdropPath) return false
 
         return true
     }
 
     override fun hashCode(): Int {
-        return id
+        var result = id
+        result = 31 * result + title.hashCode()
+        result = 31 * result + originalTitle.hashCode()
+        result = 31 * result + (originalLanguage?.hashCode() ?: 0)
+        result = 31 * result + (imdbId?.hashCode() ?: 0)
+        result = 31 * result + (posterPath?.hashCode() ?: 0)
+        result = 31 * result + (homepage?.hashCode() ?: 0)
+        result = 31 * result + (overview?.hashCode() ?: 0)
+        result = 31 * result + popularity.hashCode()
+        result = 31 * result + (status?.hashCode() ?: 0)
+        result = 31 * result + (tagline?.hashCode() ?: 0)
+        result = 31 * result + (runtime ?: 0)
+        result = 31 * result + (revenue?.hashCode() ?: 0)
+        result = 31 * result + (budget?.hashCode() ?: 0)
+        result = 31 * result + (adult?.hashCode() ?: 0)
+        result = 31 * result + voteCount.hashCode()
+        result = 31 * result + voteAverage.hashCode()
+        result = 31 * result + (releaseDate?.hashCode() ?: 0)
+        result = 31 * result + (backdropPath?.hashCode() ?: 0)
+
+        return result
     }
 }
