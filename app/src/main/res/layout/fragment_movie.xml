@@ -51,7 +51,8 @@
                             android:background="@color/colorImagePlaceholder"
                             android:contentDescription="@string/movie_poster_desc"
                             android:fitsSystemWindows="true"
-                            android:scaleType="fitXY" />
+                            android:scaleType="fitXY"
+                            app:imageFromUrl="@{movie.backdropPathUrl}" />
 
                         <LinearLayout
                             android:layout_width="match_parent"
