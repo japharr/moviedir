@@ -22,7 +22,7 @@ object DateHelper { //1996-07-26
   const val DATE_TIME_SIMPLE_STRING = "dd/MM/yyyy HH:mm a"
   const val DATE_TIME_HORT_STRING = "dd MMM, yyyy HH:mm a"
   const val DATER_TIME_SERVER_STRING_GEN = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
-  const val DATE_YEAR_STRING = "MM yyyy"
+  const val DATE_YEAR_STRING = "MMM yyyy"
 
   @JvmField val DATE_TIME_SHORT_FORMAT = object : ThreadLocal<DateFormat>() {
     override fun initialValue(): DateFormat {

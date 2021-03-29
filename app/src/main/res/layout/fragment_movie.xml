@@ -16,9 +16,7 @@
         android:id="@+id/coordinatorLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:fitsSystemWindows="true"
-        tools:context="com.jeliliadesina.moviedir.MainActivity"
-        tools:ignore="MergeRootFrame">
+        android:fitsSystemWindows="true">
 
         <com.google.android.material.appbar.AppBarLayout
             android:id="@+id/app_bar_layout"
@@ -33,7 +31,7 @@
                 android:layout_height="match_parent"
                 android:fitsSystemWindows="true"
                 app:contentScrim="?attr/colorPrimary"
-                app:layout_scrollFlags="scroll|exitUntilCollapsed">
+                app:layout_scrollFlags="scroll|exitUntilCollapsed|snap">
 
                 <LinearLayout
                     android:id="@+id/RelativeLayout1"
@@ -53,9 +51,7 @@
                             android:background="@color/colorImagePlaceholder"
                             android:contentDescription="@string/movie_poster_desc"
                             android:fitsSystemWindows="true"
-                            android:scaleType="fitXY"
-                            app:imageFromUrl="@{movie.backdropPathUrl}" />
-
+                            android:scaleType="fitXY" />
 
                         <LinearLayout
                             android:layout_width="match_parent"

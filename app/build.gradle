@@ -106,6 +106,9 @@ dependencies {
     implementation "androidx.navigation:navigation-fragment-ktx:$rootProject.navigationVersion"
     implementation "androidx.navigation:navigation-ui-ktx:$rootProject.navigationVersion"
 
+    // Palette
+    implementation "androidx.palette:palette-ktx:$rootProject.paletteVersion"
+
     // Timber (Logging)
     api "com.jakewharton.timber:timber:$rootProject.timberVersion"
     

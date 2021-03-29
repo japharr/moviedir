@@ -25,6 +25,7 @@ buildscript {
         cardviewVersion = '1.0.0'
         pagingVersion = '2.1.2'
         timberVersion = '4.7.1'
+        paletteVersion = '1.0.0'
 
         internetChecker = '1.0.4'
 
