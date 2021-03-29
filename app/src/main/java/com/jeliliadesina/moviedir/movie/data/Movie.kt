@@ -34,7 +34,7 @@ data class Movie(
     var revenue: Long? = 0L,
     var budget: Long? = 0L,
     var adult: Boolean? = false,
-    var genres: List<NameField?>? = null,
+    var genres: List<NameField?>? = emptyList(),
     @field:SerializedName("vote_count")
     var voteCount: Long = 0L,
     @field:SerializedName("vote_average")
@@ -44,11 +44,11 @@ data class Movie(
     @field:SerializedName("backdrop_path")
     var backdropPath: String? = null,
     @field:SerializedName("production_companies")
-    var productionCompanies: List<NameField?>? = null,
+    var productionCompanies: List<NameField?>? = emptyList(),
     @field:SerializedName("production_countries")
-    var productionCountries: List<NameField?>? = null,
+    var productionCountries: List<NameField?>? = emptyList(),
     @field:SerializedName("spoken_languages")
-    var spokenLanguages: List<NameField?>? = null
+    var spokenLanguages: List<NameField?>? = emptyList()
 ) {
     val imageUrl: String get() = "$BASE_POSTER_IMAGE_URL$posterPath"
 
@@ -67,4 +67,19 @@ data class Movie(
     val allProductionCountries: String? get() = productionCountries?.joinToString()
 
     val allSpokenLanguages: String? get() = spokenLanguages?.joinToString()
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (javaClass != other?.javaClass) return false
+
+        other as Movie
+
+        if (id != other.id) return false
+
+        return true
+    }
+
+    override fun hashCode(): Int {
+        return id
+    }
 }
