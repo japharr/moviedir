@@ -4,19 +4,14 @@ import android.os.Bundle
 import android.view.*
 import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupWithNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.jeliliadesina.moviedir.BR
-import com.jeliliadesina.moviedir.MainActivity
 import com.jeliliadesina.moviedir.R
 import com.jeliliadesina.moviedir.databinding.FragmentMoviesBinding
-import com.jeliliadesina.moviedir.util.ConnectivityUtil
-import com.jeliliadesina.moviedir.util.ui.BaseFragment
 import com.jeliliadesina.moviedir.util.ui.GridSpacingItemDecoration
 import com.jeliliadesina.moviedir.util.ui.VerticalItemDecoration
 import com.jeliliadesina.moviedir.util.ui.hide
@@ -77,28 +72,6 @@ class MoviesFragment : Fragment(), InternetConnectivityListener {
 
         view.findViewById<Toolbar>(R.id.toolbar)
             .setupWithNavController(navController, appBarConfiguration)
-    }
-
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater.inflate(R.menu.menu_list_representation, menu)
-        setDataRepresentationIcon(menu.findItem(R.id.list))
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return when (item.itemId) {
-            R.id.list -> {
-                isLinearLayoutManager = !isLinearLayoutManager
-                setDataRepresentationIcon(item)
-                setLayoutManager()
-                true
-            }
-            else -> super.onOptionsItemSelected(item)
-        }
-    }
-
-    private fun setDataRepresentationIcon(item: MenuItem) {
-        item.setIcon(if (isLinearLayoutManager)
-            R.drawable.ic_grid_list_24dp else R.drawable.ic_list_white_24dp)
     }
 
     private fun subscribeUi(adapter: MovieAdapter) {

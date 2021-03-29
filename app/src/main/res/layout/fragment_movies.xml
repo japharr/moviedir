@@ -38,7 +38,7 @@
             android:clipToPadding="false"
             android:scrollbars="vertical"
             tools:context="com.jeliliadesina.moviedir.MainActivity"
-            tools:listitem="@layout/list_item_movie" />
+            tools:listitem="@layout/grid_item_movie" />
 
         <ProgressBar
             android:id="@+id/progressBar"
