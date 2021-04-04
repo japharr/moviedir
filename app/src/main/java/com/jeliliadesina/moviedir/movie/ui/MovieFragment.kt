@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.appcompat.widget.Toolbar
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
@@ -20,11 +21,12 @@ import com.jeliliadesina.moviedir.R
 import com.jeliliadesina.moviedir.data.Result
 import com.jeliliadesina.moviedir.databinding.FragmentMovieBinding
 import com.jeliliadesina.moviedir.movie.data.Movie
-import org.koin.androidx.viewmodel.ext.android.viewModel
+import dagger.hilt.android.AndroidEntryPoint
 
 
+@AndroidEntryPoint
 class MovieFragment : Fragment(), MainActivity.OnBackPressedListener {
-    private val movieViewModel: MovieViewModel by viewModel()
+    private val movieViewModel: MovieViewModel by viewModels()
 
     private lateinit var movie: Movie
 

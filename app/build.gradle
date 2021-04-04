@@ -5,6 +5,7 @@ plugins {
     id 'kotlin-kapt'
     id 'androidx.navigation.safeargs.kotlin'
     id 'jacoco'
+    id 'dagger.hilt.android.plugin'
 }
 
 android {
@@ -61,13 +62,6 @@ dependencies {
     implementation "androidx.recyclerview:recyclerview:$rootProject.recyclerviewVersion"
     implementation "androidx.cardview:cardview:$rootProject.cardviewVersion"
 
-    // Koin for Android
-    implementation "org.koin:koin-android:$rootProject.koinVersion"
-    // or Koin for Lifecycle scoping
-    implementation "org.koin:koin-androidx-scope:$rootProject.koinVersion"
-    // or Koin for Android Architecture ViewModel
-    implementation "org.koin:koin-androidx-viewmodel:$rootProject.koinVersion"
-
     // Room ORM
     implementation "androidx.room:room-ktx:$rootProject.roomVersion"
     implementation "androidx.room:room-runtime:$rootProject.roomVersion"
@@ -111,6 +105,10 @@ dependencies {
 
     // Timber (Logging)
     api "com.jakewharton.timber:timber:$rootProject.timberVersion"
+
+    // Hilt
+    implementation "com.google.dagger:hilt-android:$rootProject.hiltVersion"
+    kapt "com.google.dagger:hilt-android-compiler:$rootProject.hiltVersion"
     
     implementation project(':square-image-view')
 

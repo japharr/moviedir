@@ -1,12 +1,18 @@
 package com.jeliliadesina.moviedir.di
 
+import dagger.Module
+import dagger.Provides
+import dagger.hilt.InstallIn
+import dagger.hilt.components.SingletonComponent
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import org.koin.core.qualifier.named
-import org.koin.dsl.module
+import javax.inject.Singleton
 
-const val COROUTINE_SCOPE_NAMED = "coroutineScopeIO"
-
-val appModule = module {
-    single(named(COROUTINE_SCOPE_NAMED)) { CoroutineScope(Dispatchers.IO) }
+@Module
+@InstallIn(SingletonComponent::class)
+object AppModule {
+    @Provides
+    @Singleton
+    fun provideCoroutineScope() =
+        CoroutineScope(Dispatchers.IO)
 }

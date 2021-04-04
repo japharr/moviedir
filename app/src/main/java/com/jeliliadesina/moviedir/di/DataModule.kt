@@ -1,20 +1,47 @@
 package com.jeliliadesina.moviedir.di
 
+import android.content.Context
 import com.jeliliadesina.moviedir.Constants.APP_DATABASE_NAME
+import com.jeliliadesina.moviedir.api.MovieDbService
 import com.jeliliadesina.moviedir.data.AppDatabase
+import com.jeliliadesina.moviedir.movie.data.MovieDao
 import com.jeliliadesina.moviedir.movie.data.MoviePageDataSource
 import com.jeliliadesina.moviedir.movie.data.MovieRemoteDataSource
 import com.jeliliadesina.moviedir.movie.data.MovieRepository
-import org.koin.dsl.module
+import dagger.Module
+import dagger.Provides
+import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
+import dagger.hilt.components.SingletonComponent
+import kotlinx.coroutines.CoroutineScope
+import javax.inject.Singleton
 
-val dataModule = module {
-    single { AppDatabase.getInstance(get(), APP_DATABASE_NAME) }
 
-    single { (get() as AppDatabase).movieDao() }
+@Module
+@InstallIn(SingletonComponent::class)
+object DataModule {
+    @Singleton
+    @Provides
+    fun provideDatabase(@ApplicationContext context: Context) =
+        AppDatabase.getInstance(context, APP_DATABASE_NAME)
 
-    single { MoviePageDataSource(get(), get(), get()) }
+    @Singleton
+    @Provides
+    fun provideMovieDao(appDatabase: AppDatabase) =
+        appDatabase.movieDao()
 
-    single { MovieRemoteDataSource(get()) }
+    @Singleton
+    @Provides
+    fun provideMovieRemoteDataSource(apiService: MovieDbService) =
+        MovieRemoteDataSource(apiService)
 
-    single { MovieRepository(get(), get()) }
+    @Singleton
+    @Provides
+    fun provideMoviePageDataSource(dataSource: MovieRemoteDataSource, dao: MovieDao, scope: CoroutineScope) =
+        MoviePageDataSource(dataSource, dao, scope)
+
+    @Singleton
+    @Provides
+    fun provideMovieRepository(movieDao: MovieDao, movieRemoteDataSource: MovieRemoteDataSource) =
+        MovieRepository(movieDao, movieRemoteDataSource)
 }

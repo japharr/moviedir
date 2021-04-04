@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.*
 import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupWithNavController
@@ -17,11 +18,12 @@ import com.jeliliadesina.moviedir.util.ui.VerticalItemDecoration
 import com.jeliliadesina.moviedir.util.ui.hide
 import com.treebo.internetavailabilitychecker.InternetAvailabilityChecker
 import com.treebo.internetavailabilitychecker.InternetConnectivityListener
-import org.koin.androidx.viewmodel.ext.android.viewModel
+import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
 
+@AndroidEntryPoint
 class MoviesFragment : Fragment(), InternetConnectivityListener {
-    private val moviesViewModel: MoviesViewModel by viewModel()
+    private val moviesViewModel: MoviesViewModel by viewModels()
 
     private lateinit var binding: FragmentMoviesBinding
     private val adapter: MovieAdapter by lazy { MovieAdapter() }

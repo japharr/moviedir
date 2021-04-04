@@ -7,19 +7,32 @@ import com.google.gson.GsonBuilder
 import com.jeliliadesina.moviedir.BuildConfig
 import com.jeliliadesina.moviedir.api.ApiKeyInterceptor
 import com.jeliliadesina.moviedir.api.MovieDbService
+import dagger.Module
+import dagger.Provides
+import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
+import dagger.hilt.components.SingletonComponent
 import okhttp3.Cache
 import okhttp3.OkHttpClient
-import org.koin.dsl.module
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
+import javax.inject.Singleton
 
-val retrofitModule = module {
-    fun provideGson() = GsonBuilder().setFieldNamingPolicy(FieldNamingPolicy.IDENTITY).create()
+@Module
+@InstallIn(SingletonComponent::class)
+object RetrofitModule {
+    @Singleton
+    @Provides
+    fun provideGson() =
+        GsonBuilder().setFieldNamingPolicy(FieldNamingPolicy.IDENTITY).create()
 
-    fun provideHttpCache(context: Context)
-            = Cache(context.cacheDir, (1024 * 1024 * 1024).toLong())
+    @Singleton
+    @Provides
+    fun provideHttpCache(@ApplicationContext context: Context) =
+        Cache(context.cacheDir, (1024 * 1024 * 1024).toLong())
 
+    @Singleton @Provides
     fun provideHttpClient(cache: Cache): OkHttpClient {
         val client = OkHttpClient.Builder()
         client.cache(cache)
@@ -33,7 +46,7 @@ val retrofitModule = module {
         return client.build()
     }
 
-
+    @Singleton @Provides
     fun provideRetrofit(gson: Gson, client: OkHttpClient): Retrofit {
         return Retrofit.Builder()
             .baseUrl(MovieDbService.ENDPOINT)
@@ -44,12 +57,7 @@ val retrofitModule = module {
             .build()
     }
 
+    @Singleton
+    @Provides
     fun provideMovieDbService(retrofit: Retrofit) = retrofit.create(MovieDbService::class.java)
-
-    single { provideGson() }
-    single { provideHttpCache(get()) }
-    single { provideHttpClient(get()) }
-    single { provideRetrofit(get(), get()) }
-    single { provideMovieDbService(get()) }
-
 }
